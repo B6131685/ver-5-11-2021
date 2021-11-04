@@ -8,6 +8,7 @@ var Schema = require('mongoose').Schema;
 
 const bookSchema = Schema({
     name: String,
+    author:String,
     tag: String,
     quantity: Number,
     price:Number,

@@ -13,6 +13,7 @@ export class NewBookComponent implements OnInit {
 
   productForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
+    author : new FormControl('',[Validators.required]),
     tag: new FormControl('',[Validators.required]),
     quantity: new FormControl('',[Validators.required]),
     price: new FormControl('',[Validators.required]),
@@ -62,5 +63,7 @@ export class NewBookComponent implements OnInit {
   get validateTag() { return this.productForm.get('tag') as FormControl }
   get validateQuantity() { return this.productForm.get('quantity') as FormControl }
   get validatePrice() { return this.productForm.get('price') as FormControl }
+  get validateImg() { return this.productForm.get('img') as FormControl }
+  get validateauthor() { return this.productForm.get('author') as FormControl }
 
 }

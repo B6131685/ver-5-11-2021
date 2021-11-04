@@ -28,6 +28,22 @@
                         </div>
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-md-3">
+                                ผู้เขียน:
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" formControlName='author'>
+                                  <div *ngIf="validateauthor.invalid && (validateauthor.dirty || validateauthor.touched)" class="alert-danger">
+                                    <div *ngIf="validateauthor.errors?.required">
+                                      ใส่ชื่อผู้เขียน
+                                    </div>
+
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-3">
                                 หมวดหมู่:
                             </div>
                             <div class="col-md-9">
@@ -53,6 +69,12 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                   <input type="number" class="form-control" formControlName='quantity'>
+                                  <div *ngIf="validateQuantity.invalid && (validateQuantity.dirty || validateQuantity.touched)" class="alert-danger">
+                                    <div *ngIf="validateQuantity.errors?.required">
+                                      ใส่จำนวนหนังสือ
+                                    </div>
+
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -63,6 +85,12 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                   <input type="number" class="form-control" formControlName='price'>
+                                  <div *ngIf="validatePrice.invalid && (validatePrice.dirty || validatePrice.touched)" class="alert-danger">
+                                    <div *ngIf="validatePrice.errors?.required">
+                                      ใส่ราคา
+                                    </div>
+
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -74,6 +102,13 @@
                                 <div class="form-group">
                                   <input type="file" class="form-control-file" formControlName='file' (change)="onChangeImg($event)">
                                 </div>
+                                <div *ngIf="validateImg.invalid && (validateImg.dirty || validateImg.touched)" class="alert-danger">
+                                    <div *ngIf="validateImg.errors?.required">
+                                      ใส่ภาพหน้าปก
+                                    </div>
+
+                                  </div>
+
                             </div>
                         </div>
 
