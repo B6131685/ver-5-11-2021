@@ -13,6 +13,7 @@ import { ShowproductsComponent } from './userMode/showproducts/showproducts.comp
 import { SearchComponent } from './userMode/search/search.component';
 import { HomeComponent } from './adminMode/home/home.component';
 import { ResetPasswordComponent } from './userMode/reset-password/reset-password.component';
+import { ManageUserComponent } from './adminMode/manage-user/manage-user.component';
 const routes: Routes = [
   {path: 'home1', component: AppComponent},
   {path: 'login', component: LoginComponent},
@@ -26,6 +27,9 @@ const routes: Routes = [
       path: 'stock', component: StockComponent
     },{
       path: 'Home' , component: HomeComponent
+    },
+    {
+      path: 'Manage', component: ManageUserComponent
     }
   ]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard],

@@ -7,7 +7,7 @@ import { LocalStorageService } from 'angular-web-storage';
   providedIn: 'root'
 })
 export class AuthServiceService {
-
+  products: any;
       isLogin = false;
     
       roleAs!: string;
@@ -90,7 +90,26 @@ export class AuthServiceService {
       }
 
       updatePassword(product: any){
-        return this.http.post<any>('http://localhost:3000/bookstore/resetPassword', product)
+        return this.http.put<any>('http://localhost:3000/bookstore/resetPassword', product)
+        .pipe(map(data =>{
+          return data;
+        }))
+      }
+
+
+      getUsersData(){
+        return this.http.get<any>('http://localhost:3000/bookstore/getUser')
+        .pipe(map(data => {
+          if (data) {
+            this.products = data;
+            //console.log(this.products);
+          }
+          return this.products;
+        }))
+      }
+
+      deleteProduct(product : any){
+        return this.http.delete<any>('http://localhost:3000/bookstore/deleteUser/'+product)
         .pipe(map(data =>{
           return data;
         }))

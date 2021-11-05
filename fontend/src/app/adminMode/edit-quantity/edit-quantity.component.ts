@@ -20,10 +20,10 @@ export class EditQuantityComponent implements OnInit {
 
 
   updatePlusStock(){
-    console.log(this.item.name+"--> newQ = "+this.newQ);
+    //console.log(this.item.name,"--> newQ = ",this.newQ);
     if( this.newQ === undefined) this.newQ=0;
     this.item.quantity = this.item.quantity + this.newQ;
-
+    console.log(this.item, "ไอเทมจาก stock");
     try {
       this.BookService.updateBook(this.item).subscribe(
         data => {
@@ -36,7 +36,7 @@ export class EditQuantityComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
-    window.location.reload();
+   // window.location.reload();
   }
 
   updateMinusStock(){

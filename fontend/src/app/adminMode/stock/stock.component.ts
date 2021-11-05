@@ -10,7 +10,7 @@ export class StockComponent implements OnInit {
 
   products: any;
   
-  item = {"_id": Number}
+  item = {_id: Number}
 
   newQ !: Number;
 
@@ -55,10 +55,11 @@ export class StockComponent implements OnInit {
   deletebook(item:any){
     console.log(item);
     this.item._id = item;
-    console.log(this.item);
+
+    console.log("sadddd",this.item);
     
     try {
-      this.bookservice.deleteProduct(this.item).subscribe(
+      this.bookservice.deleteProduct(this.item._id).subscribe(
         data => {
           //this.products = data;
         },
@@ -70,6 +71,6 @@ export class StockComponent implements OnInit {
       console.log(error);
     }
     this.onLoading();
-    window.location.reload();
+    //window.location.reload();
   }
 }

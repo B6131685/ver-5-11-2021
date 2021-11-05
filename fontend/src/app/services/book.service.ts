@@ -31,18 +31,26 @@ export class BookService {
   }
 
   deleteProduct(product : any){
-    return this.http.post<any>('http://localhost:3000/bookstore/deletebook', product)
+    return this.http.delete<any>('http://localhost:3000/bookstore/deletebook/'+product)
     .pipe(map(data =>{
       return data;
     }))
   }
 
   updateBook(product: any){
-    return this.http.post<any>('http://localhost:3000/bookstore/updateQuantityBook', product)
+    return this.http.put<any>('http://localhost:3000/bookstore/updateQuantityBook', product)
     .pipe(map(data =>{
       return data;
     }))
   }
+
+  updateBookByName(product: any){
+    return this.http.put<any>('http://localhost:3000/bookstore/updateQuantityBook', product)
+    .pipe(map(data =>{
+      return data;
+    }))
+  }
+ 
 
   getSomePs(p_id:any){
     return this.products[p_id];

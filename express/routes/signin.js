@@ -88,7 +88,7 @@ router.route('/signin')
 })
 
 
-router.route('/resetPassword').post( (req,res)=>{
+router.route('/resetPassword').put( (req,res)=>{
 
     var query = {"_id":req.body._id};
     makeHash(req.body.password)
@@ -106,8 +106,69 @@ router.route('/resetPassword').post( (req,res)=>{
 
     })
     
-        
+})
 
+
+const deleteProduct = (productID) =>{
+    return new Promise ((resolve, reject) => {
+        
+        User.deleteOne({_id:productID}, (err, data)=>{
+
+            if(err){
+                reject(new Error('Cannot delete products!'));
+            }else{
+                if(data){
+                    resolve(data)
+                }else{
+                    reject(new Error('Cannot delete products!'))
+                }
+            }
+        }
+        );
+    });
+}
+
+
+
+router.route('/deleteUser/:id').delete((req,res)=>{
+    console.log("express delete bool");
+    //console.log("backend",req.body);
+    console.log("นี้ นี้",req.params.id);
+    deleteProduct(req.params.id).then( result => {
+        console.log(result);
+        res.status(200).json(result);
+    })
+    .catch( err => {
+        console.log(err);
+    })
+})
+
+
+const getUser = ()=> {
+    return new Promise (
+        (resolve, reject)=>{
+            User.find({}, (err, data)=> {if(err){
+                reject(new Error('Cannot get User!'));
+            }else{
+                if(data){
+                    resolve(data)
+                }else{
+                    reject(new Error('Cannot get User!'))
+                }
+            }})
+        }
+    );
+}
+
+router.route('/getUser').get((req,res)=>{
+    console.log('get');
+    getUser().then( result => {
+        //console.log(result);
+        res.status(200).json(result);
+    })
+    .catch( err => {
+        console.log(err);
+    })
 })
 
 module.exports = router

@@ -22,6 +22,7 @@ import { BuyProductsComponent } from './userMode/buy-products/buy-products.compo
 import { DeleteCartComponent } from './userMode/delete-cart/delete-cart.component';
 import { HomeComponent } from './adminMode/home/home.component';
 import { ResetPasswordComponent } from './userMode/reset-password/reset-password.component';
+import { ManageUserComponent } from './adminMode/manage-user/manage-user.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ResetPasswordComponent } from './userMode/reset-password/reset-password
     DeleteCartComponent,
     HomeComponent,
     ResetPasswordComponent,
+    ManageUserComponent,
 
     
   ],

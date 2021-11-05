@@ -117,10 +117,8 @@ router.route('/getbook').get((req,res)=>{
 
 const deleteProduct = (productID) =>{
     return new Promise ((resolve, reject) => {
-        var new_product = new Book(
-             productID
-        );
-        new_product.deleteOne(productID, (err, data)=>{
+        
+        Book.deleteOne({_id:productID}, (err, data)=>{
 
             if(err){
                 reject(new Error('Cannot delete products!'));
@@ -138,11 +136,11 @@ const deleteProduct = (productID) =>{
 
 
 
-router.route('/deletebook').post((req,res)=>{
+router.route('/deletebook/:id').delete((req,res)=>{
     console.log("express delete bool");
-    console.log(req.body._id);
-
-    deleteProduct({_id:req.body._id}).then( result => {
+    //console.log("backend",req.body);
+    console.log(req.params.id);
+    deleteProduct(req.params.id).then( result => {
         console.log(result);
         res.status(200).json(result);
     })
@@ -171,7 +169,7 @@ const updateProduct = (productID) =>{
             
         });
     }
-router.route('/updateQuantityBook').post( (req,res)=>{
+router.route('/updateQuantityBook').put( (req,res)=>{
 
     var query = {"_id":req.body._id};
 
@@ -182,7 +180,7 @@ router.route('/updateQuantityBook').post( (req,res)=>{
 
 })
 
-router.route('/updateBookfromuser').post( (req,res)=>{
+router.route('/updateBookfromuser').put( (req,res)=>{
 
     var query = {"name":req.body.name};
 

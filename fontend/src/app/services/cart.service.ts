@@ -64,10 +64,15 @@ export class CartService {
   }
 
   resetCart(){
+      console.log('resetCart working');
+      console.log(this.carts);
     for (const element of this.carts) { // [{หนังสือ1},{หนังสือ2},{หนังสือ1}]
-      //console.log(element);
-      element.quantity = element.quantity -1;
-      this.updateMinusStock(element);
+      console.log("เกิดอะไรขึ้น  ",element);
+      if(element != undefined){
+        element.quantity = element.quantity -1;
+        this.updateMinusStock(element);
+      }
+      
     }
     this.carts = [];
     //console.log('after reset',this.carts);  // โหล่งจิง
@@ -75,6 +80,8 @@ export class CartService {
 
   updateMinusStock(item:any){  // item จะเป็นตัวที่ได้จาก for มาลบ
     //console.log(item+"--> newQ = "+count);
+    console.log("item จากการรีเซ็ตตะกร้า", item);
+    
     try {
       this.BookService.updateBook(item).subscribe(
         data => {

@@ -29,7 +29,16 @@ export class LoginComponent implements OnInit {
     this.auth.getData(this.authForm.value).subscribe(
       data => {
         if(data.status == true){
-          alert('เข้าระบบแล้ว')
+          let role = this.auth.getRole();
+          if (role === 'admin'){
+            console.log('go to admin tap');
+            this.router.navigate(['admin']);
+          }
+          if (role === 'customer'){
+            console.log('go to customer tap');
+            this.router.navigate(['user']);
+          }
+          //alert('เข้าระบบแล้ว')
           console.log(data._value)
         }
       },

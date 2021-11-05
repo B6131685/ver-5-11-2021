@@ -94,7 +94,7 @@ export class CartsComponent implements OnInit {
           }
         );
 
-        window.location.reload();
+        //window.location.reload();
   }
 
 }
