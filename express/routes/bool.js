@@ -103,6 +103,17 @@ router.route('/addbook').post((req, res)=>{
 })
 
 
+router.route('/updateBookfromuser').put( (req,res)=>{
+
+    var query = {"name":req.body.name};
+
+        Book.findByIdAndUpdate(query, {"quantity":req.body.quantity}, {new: true}, function(err, doc) {
+            if (err) return res.send(500, {error: err});
+            return res.send('Succesfully saved.');
+        });
+
+})
+
 router.route('/getbook').get((req,res)=>{
     console.log('get');
     getProduct().then( result => {
@@ -180,15 +191,6 @@ router.route('/updateQuantityBook').put( (req,res)=>{
 
 })
 
-router.route('/updateBookfromuser').put( (req,res)=>{
 
-    var query = {"name":req.body.name};
-
-        Book.findByIdAndUpdate(query, {"quantity":req.body.quantity}, {new: true}, function(err, doc) {
-            if (err) return res.send(500, {error: err});
-            return res.send('Succesfully saved.');
-        });
-
-})
 
 module.exports = router

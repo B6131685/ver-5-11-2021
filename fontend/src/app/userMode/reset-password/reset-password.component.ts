@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { FormControl } from '@angular/forms';
+import Swal from 'sweetalert2'; // npm install sweetalert2
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -32,19 +33,37 @@ export class ResetPasswordComponent implements OnInit {
     //console.log(this.user);
     //console.log(this.newPassword.value);
     this.updateitem.password = this.newPassword.value;
-    try {
-      this.AuthServiceService.updatePassword(this.updateitem).subscribe(
-        data => {
-
-        },
-        err => {
-          console.log(err);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, change it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          this.AuthServiceService.updatePassword(this.updateitem).subscribe(
+            data => {
+    
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        } catch (error) {
+          console.log(error);
         }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    alert("Updata Password Successfully")
+        Swal.fire(
+          'Deleted!',
+          'รหัสถูกเปลี่ยนเรียบร้อย',
+          'success'
+        )
+      }
+    })
+    
+    //alert("Updata Password Successfully")
 
   }
 }
