@@ -7,13 +7,14 @@ import { LocalStorageService } from 'angular-web-storage';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  products: any;
+      products: any;
       isLogin = false;
     
       roleAs!: string;
     
       constructor( private http: HttpClient, public local:LocalStorageService) { }
-    
+
+      // set เพื่อ ไว้ เช็ค route
       login(value: string) {
         this.isLogin = true;
         this.roleAs = value;
@@ -60,6 +61,8 @@ export class AuthServiceService {
         //return 'admin'
       }
 
+
+       // คือ login ไปที่ backend
        getData(authData: any){
         return  this.http.post<any>('http://localhost:3000/bookstore/signin',authData)
         .pipe(map(data =>{

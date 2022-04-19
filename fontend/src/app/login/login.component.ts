@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     console.log('Function signin on login.components');
     console.log(this.authForm.value);
     console.log('');
+    // API login
     this.auth.getData(this.authForm.value).subscribe(
       data => {
         if(data.status == true){
@@ -77,7 +78,7 @@ export class LoginComponent implements OnInit {
     }
     if (role === 'customer'){
       console.log('go to customer tap');
-      this.router.navigate(['user']);
+      this.router.navigate(['user/products']);
     }
       
   }

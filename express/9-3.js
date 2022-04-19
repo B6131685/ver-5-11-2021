@@ -1,6 +1,6 @@
 const expressFunction = require('express');
 const express = require("express")
-const app = express()
+const app = express();
 const mongoose = require('mongoose');
 var expressApp = expressFunction();
 const cors = require("cors")
@@ -21,7 +21,10 @@ expressApp.use((req,res,next)=>{
     return next()
 })
 
-expressApp.use(expressFunction.json());
+expressApp.use(expressFunction.json({
+    limit:'100mb'
+}
+));
 
 
 expressApp.use((req, res, next)=>{

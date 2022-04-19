@@ -32,7 +32,7 @@ const routes: Routes = [
       path: 'Manage', component: ManageUserComponent
     }
   ]},
-  {path: 'user', component: UserComponent, canActivate: [AuthGuard],
+  {path: 'user',component:ShowproductsComponent, canActivate: [AuthGuard],
   data: {
     role: 'customer'
   }, children: [

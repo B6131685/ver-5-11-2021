@@ -46,7 +46,8 @@ export class ResetPasswordComponent implements OnInit {
         try {
           this.AuthServiceService.updatePassword(this.updateitem).subscribe(
             data => {
-    
+              
+              
             },
             err => {
               console.log(err);

@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 })
 export class ShowproductsComponent implements OnInit {
   products: any;
-  show: boolean = true;
+  show : boolean = true;
   counter: any;
 
   keyword = new FormControl('');

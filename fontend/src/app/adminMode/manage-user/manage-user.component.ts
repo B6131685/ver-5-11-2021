@@ -20,7 +20,7 @@ export class ManageUserComponent implements OnInit {
     try {
       this.AuthServiceService.getUsersData().subscribe(
         data => {
-          this.products = data;
+          this.products = data.filter(this.checkRole);
         },
         err => {
           console.log(err);
@@ -30,6 +30,10 @@ export class ManageUserComponent implements OnInit {
       console.log(error);
       
     }
+  }
+
+  checkRole(obj:any){
+    return obj.role === "customer";
   }
 
   deleteUser(item:any){
