@@ -1,3 +1,14 @@
+<nav class="navbar navbar-dark bg-dark">
+    
+        <div class="container-fluid">
+          <a class="navbar-brand">Bookstore</a>
+          <form class="d-flex">
+            <button class="btn btn-danger" type="submit" (click)="signOut()">log out</button>
+          </form>
+        </div>
+      
+</nav>
+
 <app-search (messageEvent)="receivData($event)"></app-search>
 <div class="container-fluid" style="margin-top:30px">
     <div class="row">
@@ -5,13 +16,14 @@
         <h2>Products</h2>
         <div class="table-responsive-md">  
         <table class="table table-striped table-inverse">
-            <thead class="thead-inverse">
+            <thead  class="table-dark">
                 <tr>
                     <th>ชื่อหนังสือ</th>
                     <th>หมวดหมู่</th>
                     <th>ราคา</th>
                     <th>จำนวน(เล่ม)</th>
                     <th>Image</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

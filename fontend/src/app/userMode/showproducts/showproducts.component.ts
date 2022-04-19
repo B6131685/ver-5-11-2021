@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
 import { FormControl } from '@angular/forms';
-
+import { LocalStorageService } from 'angular-web-storage';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-showproducts',
   templateUrl: './showproducts.component.html',
@@ -14,7 +15,7 @@ export class ShowproductsComponent implements OnInit {
 
   keyword = new FormControl('');
 
-  constructor(private bk: BookService) { 
+  constructor(private bk: BookService, public local:LocalStorageService,private router: Router) { 
 
   }
 
@@ -43,5 +44,10 @@ export class ShowproductsComponent implements OnInit {
     this.counter = $event
   }
 
+  signOut(){
+    this.local.clear();
+    const loggedIn = localStorage.getItem('STATE');
+    this.router.navigate(['login']);
+  }
 
 }

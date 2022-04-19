@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
           let role = this.auth.getRole();
           if (role === 'admin'){
             console.log('go to admin tap');
-            this.router.navigate(['admin']);
+            this.router.navigate(['admin/Home']);
           }
           if (role === 'customer'){
             console.log('go to customer tap');
@@ -73,8 +73,8 @@ export class LoginComponent implements OnInit {
     
     let role = this.auth.getRole();
     if (role === 'admin'){
-      console.log('go to admin tap');
-      this.router.navigate(['admin']);
+      console.log('go to admin/Home');
+      this.router.navigate(['admin/Home']);
     }
     if (role === 'customer'){
       console.log('go to customer tap');

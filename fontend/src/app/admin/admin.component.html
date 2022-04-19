@@ -1,17 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" >Bookstore</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
+    <div class="container-fluid" >
+      <span class="navbar-brand" >Bookstore</span>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link" routerLink="Home" routerLinkActive="active">Order</a>
@@ -19,6 +8,9 @@
           <a class="nav-link" routerLink="stock" >Stock</a>
           <a class="nav-link" routerLink="Manage" >ManageUser</a>
         </div>
+      </div>
+      <div class="d-flex">
+        <button class="btn btn-danger" type="submit" (click)="signout()">log out</button>
       </div>
     </div>
   </nav>
