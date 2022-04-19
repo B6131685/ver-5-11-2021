@@ -23,8 +23,11 @@ import { DeleteCartComponent } from './userMode/delete-cart/delete-cart.componen
 import { HomeComponent } from './adminMode/home/home.component';
 import { ResetPasswordComponent } from './userMode/reset-password/reset-password.component';
 import { ManageUserComponent } from './adminMode/manage-user/manage-user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';  
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +46,7 @@ import { ManageUserComponent } from './adminMode/manage-user/manage-user.compone
     HomeComponent,
     ResetPasswordComponent,
     ManageUserComponent,
-
+    
     
   ],
   imports: [
@@ -51,7 +54,11 @@ import { ManageUserComponent } from './adminMode/manage-user/manage-user.compone
     AppRoutingModule,
     ReactiveFormsModule, FormsModule,
     HttpClientModule,
-    AngularWebStorageModule
+    AngularWebStorageModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
