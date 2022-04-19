@@ -43,6 +43,8 @@ expressApp.use('/bookstore', require('./routes/sigup'))
 expressApp.use('/bookstore', require('./routes/signin'))
 expressApp.use('/bookstore', require('./routes/bool'))
 expressApp.use('/bookstore', require('./routes/order'))
+expressApp.use('/bookstore', require('./routes/cart'))
+
 
 
 

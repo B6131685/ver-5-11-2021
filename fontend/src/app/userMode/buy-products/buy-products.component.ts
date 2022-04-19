@@ -28,12 +28,12 @@ export class BuyProductsComponent implements OnInit {
   addtoCart(){
     console.log("add new product -->",this.item)
     console.log(this.item); //รับมาจาก componet เลือกหนังสือ
-    if(this.item.quantity == 0){
+    if(this.item.quantity == 0){ //ตรวจสอบสินค้าใน stock ว่าหมดหรือยัง
       this.show = false;
-     // this.count = 0; //น่าจะ นับจำนวนหนังสือของ component นี้
+      // this.count = 0; //น่าจะ นับจำนวนหนังสือของ component นี้
     }else{
       this.count +=1; 
-    //console.log(this.count)
+
     this.CartService.getFromBuy(this.item);  // ส่งไปกดที่ตัวแปรร่วม
     //this.updateMinusStock(this.item,1); //ลบไปแล้ว T T  ใจเย็นก่อนนนนน
     }

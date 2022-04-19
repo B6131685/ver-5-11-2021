@@ -20,13 +20,40 @@ try {
     User = mongoose.model('users',userSchema);
 }
 
+
+const subSchema = Schema({
+    id_product: String,
+    quantity: {typr:Number, default: 0}
+})
+
+const cartSchema = Schema({
+user:mongoose.ObjectId,
+product: [subSchema]
+}, {
+collection: 'carts'
+});
+
+let CartSchema
+try {
+    CartSchema = mongoose.model('carts')
+}catch(error){
+    CartSchema = mongoose.model('carts',cartSchema);
+}
+
 const makeHash = async(plainText) => {
     const result = await bcrypt.hash(plainText, 10);
     return result;
 }
 
 const insertUser = (dataUser) => {
-    return new Promise ((resolve, reject) => {
+    return new Promise (async (resolve, reject) => {
+
+        const exist = await User.findOne({username:dataUser.username})
+        if(exist){
+            resolve({message: 'ชื่อผู้ใช้ซ้ำ'});
+        }
+
+
         var new_user = new User({
             username: dataUser.username,
             password: dataUser.password,
@@ -36,6 +63,17 @@ const insertUser = (dataUser) => {
             if(err){
                 reject(new Error('Cannot insert user to DB!'));
             }else{
+                console.log(data);
+                console.log(data._id);
+
+                cart = new CartSchema();
+                cart.user = data._id
+                cart.product = []
+                cart.save((err, cartResult)=>{
+                    if(err){ 
+                        reject(new Error('Cannot insert new '+ data.user+'\'cart to DB!'));
+                    }
+                })
                 resolve({message: 'Singn up successfully'});
             }
         })
@@ -52,10 +90,11 @@ router.route('/signup')
                 password: hashText,
                 role: req.body.role
             }
-            console.log(playload);
+            // console.log(playload);
             insertUser(playload)
                 .then(result => {
-                    console.log(result);
+                    // console.log(result);
+                    
                     res.status(200).json(result);
                 })
                 .catch(err => {
@@ -68,4 +107,4 @@ router.route('/signup')
     })
 
 //นำออกไปใช้งาน    
-module.exports = router
+module.exports = router;
