@@ -75,4 +75,11 @@ export class BookService {
     return this.fromproduct;
   }
 
+  getBookByID(id:String){
+    return this.http.get<any>('http://localhost:3000/bookstore/getBookByID/'+id)
+    .pipe(map(data => {
+      return data;
+    }))
+  }
+
 }

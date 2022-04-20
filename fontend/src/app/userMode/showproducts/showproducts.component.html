@@ -46,7 +46,10 @@
                             <td>
                                 <div style="margin-top: 60px;">
                                     <!-- <app-buy-products [item]="item"></app-buy-products> -->
-                                    <app-cart-v2 [item]="item"></app-cart-v2>
+                                    <!-- <app-cart-v2 [item]="item" *ngIf="false"></app-cart-v2> -->
+                                    <button mat-mini-fab color="accent" (click)="checkaddTocart(item._id)" aria-label="Example icon button with a plus one icon">
+                                        <mat-icon>plus_one</mat-icon>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -60,19 +63,21 @@
     </mat-drawer-content>
 
     <!-- side nav cart layout -->
-    <mat-drawer #drawer mode="side" opened position="end">
+    <mat-drawer #drawer mode="side"  position="end">
         <div style="width: 500px;height: 100%;">
         <div style="background-color: burlywood;">
             <div style="display: inline-block;margin: 20px;background-color: greenyellow;width: 100px;height: 60px;">
-                <span style="font-size: 20px;">20 item</span>  
+                <span style="font-size: 20px;">total Book:{{sumBook}} item</span>  
             </div >
             <div style="display: inline-block;float: right;background-color: red;width: 200px;height: 60px;margin: 20px;">
-                <span style="font-size: 20px;">tatal: 100000 Bth.</span>
+                <span style="font-size: 20px;">tatal patment: {{order.totalPayment}} Bth.</span>
             </div>
         </div>
         <br>
         <hr style="width:50%;text-align:left;margin-left:0">
-        asd
+        <div *ngFor="let item of order.list; index as i">
+            <span>หนังสือ: {{item.nameBook}}</span> --> <span>จำนวน {{item.quantity}} เล่ม</span> 
+        </div>
         </div>
     </mat-drawer>
   </mat-drawer-container>

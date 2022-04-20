@@ -126,6 +126,16 @@ router.route('/getbook').get((req,res)=>{
     })
 })
 
+router.route('/getBookByID/:id').get(async (req,res)=>{
+    try {
+        console.log("get chart By ID working");
+        const result = await Book.findOne({"_id":req.params.id})
+        // console.log(result);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+})
 
 const deleteProduct = (productID) =>{
     return new Promise ((resolve, reject) => {

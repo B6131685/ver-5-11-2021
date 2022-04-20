@@ -143,5 +143,16 @@ router.route('/additemtocart').put(async (req, res)=>{
     }
 })
 
+router.route('/getcart/:id').get(async (req,res)=>{
+        try {
+            console.log("get chart By ID working");
+            const result = await Cart.findOne({"user":req.params.id})
+            console.log(result);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(400).json(error);
+        }
+})
+
 module.exports = router
 

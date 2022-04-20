@@ -16,4 +16,11 @@ export class CartV2Service {
     }))
   }
 
+  getCartByID(id: string){
+    return this.http.get<any>('http://localhost:3000/bookstore/getcart/'+id)
+    .pipe(map(data =>{
+      return data;
+    }))
+  }
+
 }
