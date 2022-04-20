@@ -23,13 +23,15 @@ try {
 
 
 const subSchema = Schema({
-        id_product: String,
-        quantity: {typr:Number, default: 0}
+        quantity: {type:Number},
+        id_product: {type:String},
 })
 
 const cartSchema = Schema({
     user: mongoose.ObjectId,
-    product: [subSchema]
+    product: [
+        
+    ]
 }, {
     collection: 'carts'
 });
@@ -41,23 +43,102 @@ try {
     Cart = mongoose.model('carts',cartSchema);
 }
 
-router.route('/additemtocart').post(async (req, res)=>{
+router.route('/additemtocart').put(async (req, res)=>{
     try {
-
+        console.log("req.body =");
         console.log(req.body);
+        /*
+        {
+            id_item: "",
+            quantity
+        }
+         */
+        // check user
         const exist = await User.findOne({name:req.body.idUser})
         if(!exist){
             new Error('ไม่พบผู้ใช้งาน')
         }
-
-        const cart = await Cart.findOne({name:req.body.idUser})
+        //check cart
+        const cart = await Cart.findOne({user:req.body.idUser})
+        
         if(!cart){
             new Error('ไม่พบตะกร้าผู้ใช้')
         }
 
-        res.status(200).json({msg: cart});
+        const index = cart.product.find((list) => list.item === req.body.item,()=>{
+            console.log('list');
+            console.log(list);
+        });
+        let aftersave;
+        if(!index){
+            cart.product.push({
+                item:req.body.item,
+                quantity:1
+            })
+            
+            aftersave = await cart.save();
+        }
+
+        if(index){
+            console.log("index = ");
+            console.log(index);
+            console.log("+1");
+            let count = index?.quantity +1;
+            console.log("count = "+count);
+
+            // await Cart.findOneAndUpdate({user:req.body.idUser,"product.item":index.item},
+            // {"product.quantity": 2})
+
+
+            // await Cart.updateOne(
+            //     {"uid":123456,"userclick.email":"neelshah486@gmail.com"},
+            //     {$inc: { "userclick.$.count": 1}}
+            // )
+
+
+            // for (let i = 0; i < cart.product.length; i++) {
+            //     if(cart.product[i].id_product == index.id_product){
+            //         console.log("work");
+            //         cart.product[i].quantity = count;
+            //         console.log("after work");
+            //         console.log(cart.product[i].quantity);
+            //         aftersave = await cart.save();
+            //         console.log("aftersave");
+            //         console.log(aftersave);
+                    
+                
+            //     }
+            // }
+
+            
+            await Cart.updateOne(
+                {user:req.body.idUser, "product.item":index.item},
+                {
+                    $inc:{
+                        "product.$.quantity": 1
+                    }
+                }
+            )
+        }
+        
+
+       
+        
+        
+        //  Cart.update(
+        //     { _id: cart._id }, 
+        //     { $addToset: { product: {
+        //         quantity: 1,
+        //         id_product: req.body.item,
+        //     } } },
+        // );
+        
+        
+        
+        res.status(200).json({msg: "asd"});
 
     } catch (error) {
+        console.log(error);
         res.status(400).json({msg: error});
     }
 })

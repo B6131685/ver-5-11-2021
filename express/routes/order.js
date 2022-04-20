@@ -21,7 +21,6 @@ try {
     Order = mongoose.model('orders', orderSchema);
 }
 
-
 const addProducts = (productData) =>{
     return new Promise ((resolve, reject) => {
         var new_product = new Order(

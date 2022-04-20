@@ -25,6 +25,7 @@ try {
     Book = mongoose.model('books', bookSchema);
 }
 
+exports.Book;
 
 const addProduct = (productData) =>{
     return new Promise ((resolve, reject) => {

@@ -28,7 +28,9 @@ const subSchema = Schema({
 
 const cartSchema = Schema({
 user:mongoose.ObjectId,
-product: [subSchema]
+product: [
+    
+]
 }, {
 collection: 'carts'
 });
