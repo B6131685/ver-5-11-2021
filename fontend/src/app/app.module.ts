@@ -30,6 +30,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { CartV2Component } from './cart-v2/cart-v2.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatIconModule,
     MatButtonModule,
     MatBadgeModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

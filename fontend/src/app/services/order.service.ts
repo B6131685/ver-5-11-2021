@@ -27,4 +27,13 @@ export class OrderService {
     }))
   }
 
+  addOrder(product : any){
+    console.log('addOrder');
+    console.log(product);
+    return this.http.post<any>('http://localhost:3000/bookstore/addorder', product)
+    .pipe(map(data =>{
+      return data;
+    }))
+  }
+
 }

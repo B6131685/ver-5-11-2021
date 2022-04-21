@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { LocalStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
 import { CartV2Service } from 'src/app/services/cart-v2.service';
+import { OrderService } from 'src/app/services/order.service'
 import Swal from 'sweetalert2'
 @Component({
   selector: 'app-showproducts',
@@ -26,6 +27,7 @@ export class ShowproductsComponent implements OnInit {
   listBook: {id:String,name:String,price:Number}[] = [];
 
   order : {
+    userID:String,
     totalPayment:number,
     list:{
       idBook:String,
@@ -33,18 +35,25 @@ export class ShowproductsComponent implements OnInit {
       quantity:number,
       costBook:number
       }[]
-  } = { totalPayment:0,
+  } = { userID:'',totalPayment:0,
     list:[]
   }
 
 
 
-  constructor(private BookService: BookService, public local:LocalStorageService,private router: Router,private CartV2Service:CartV2Service,) { 
+  constructor(
+    private BookService: BookService, 
+    public local:LocalStorageService,
+    private router: Router,
+    private CartV2Service:CartV2Service,
+    private OrderService:OrderService) 
+  {
 
   }
 
   ngOnInit(): void {
     this.user = this.local.get('user').result.username;
+    
     this.getCartById();
   }
 
@@ -138,7 +147,7 @@ export class ShowproductsComponent implements OnInit {
 
   relog(){
     console.log("can check ative");
-    this.order = { totalPayment:0, list:[] };
+    this.order = { userID:'',totalPayment:0, list:[] };
     
   }
 
@@ -155,7 +164,7 @@ export class ShowproductsComponent implements OnInit {
         data => {
 
           // console.log(data);
-          this.order = { totalPayment:0, list:[] };
+          this.order = { userID:'',totalPayment:0, list:[] };
           this.sumBook = 0;
           this.getCartById();
           
@@ -181,7 +190,7 @@ export class ShowproductsComponent implements OnInit {
         data => {
 
           // console.log(data);
-          this.order = { totalPayment:0, list:[] };
+          this.order = { userID:'',totalPayment:0, list:[] };
           this.sumBook = 0;
           this.getCartById();
           
@@ -201,19 +210,36 @@ export class ShowproductsComponent implements OnInit {
   }
 
   confirmOrder(){
+    this.order.userID = this.local.get('user').result.id;
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'ยืนยันการสั่งซื้อ?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก'
     }).then((result) => {
       if (result.isConfirmed) {
+
+        // console.log(this.order);
+        this.OrderService.addOrder(this.order).subscribe(
+          data => {
+
+            // console.log(data);
+            this.order = { userID:'',totalPayment:0, list:[] };
+            this.sumBook = 0;
+            this.getCartById();
+            
+          },
+          err => {
+           throw err;
+          }
+        )
+        
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          'บันทึก!',
+          'ระบบได้บันทึกคำสั่งซื้อแล้ว',
           'success'
         )
       }

@@ -6,10 +6,10 @@ const router = expressFunction.Router();
 var Schema = require('mongoose').Schema;
 
 const orderSchema = Schema({
-    order:String
-    
-    // address: String
-    
+    userID:String,
+    list: [
+        {idBook: String,quantity:Number}
+    ]
 },{
     collection: 'orders'
 })
@@ -78,7 +78,7 @@ const deleteProduct = (productID) =>{
 
 
 router.route('/addorder').post((req, res)=>{
-    console.log('addorder');
+    console.log('add order');
     addProducts(req.body)
     .then(result => {
         console.log(result);
