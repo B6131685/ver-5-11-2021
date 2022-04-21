@@ -29,6 +29,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';  
 import {MatButtonModule} from '@angular/material/button';
 import { CartV2Component } from './cart-v2/cart-v2.component';
+import {MatBadgeModule} from '@angular/material/badge';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { CartV2Component } from './cart-v2/cart-v2.component';
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

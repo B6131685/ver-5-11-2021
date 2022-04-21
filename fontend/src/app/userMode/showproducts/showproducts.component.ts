@@ -13,7 +13,7 @@ export class ShowproductsComponent implements OnInit {
   products: any;
   show : boolean = true;
   counter: any;
-
+  user = "";
   keyword = new FormControl('');
 
   sumBook = 0;
@@ -43,6 +43,7 @@ export class ShowproductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = this.local.get('user').result.username;
     this.getCartById();
   }
 

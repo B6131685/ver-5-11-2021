@@ -3,18 +3,23 @@
         <div class="container-fluid">
           <a class="navbar-brand">Bookstore</a>
           <form class="d-flex">
+             <span class="navbar-brand" style="margin-right: 10px;">user : {{user}}</span> 
             <button class="btn btn-danger" type="submit" (click)="signOut()">log out</button>
           </form>
         </div>
       
 </nav>
-<div style="width: 100%;height: 100px;">
+<div style="width: 100%;height: 100px;background-color: #00092C">
     <div style="display: inline-block;">
         <app-search (messageEvent)="receivData($event)"></app-search>
     </div>
     <div style="display: inline-block;float:right;margin-right: 50px;margin-top: 20px;">
-        <button mat-fab color="warn" (click)="drawer.toggle()" aria-label="Example icon button with a home icon">
+        <button mat-fab style="background-color:#B20600;" (click)="drawer.toggle()"  aria-label="Example icon button with a home icon">
             <mat-icon>shopping_cart</mat-icon>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 15px;">
+                {{sumBook}}
+                <span class="visually-hidden">unread messages</span>
+              </span> 
         </button>
     </div>
 </div>
@@ -64,19 +69,26 @@
 
     <!-- side nav cart layout -->
     <mat-drawer #drawer mode="side"  position="end">
-        <div style="width: 500px;height: 100%;">
-        <div style="background-color: burlywood;">
-            <div style="display: inline-block;margin: 20px;background-color: greenyellow;width: 100px;height: 60px;">
-                <span style="font-size: 20px;">total Book:{{sumBook}} item</span>  
+        <div style="width: 500px;height: 100%;background-color: #EEEEEE;">
+        <div style="background-color:#B20600;">
+            <div style="width: 200px;height: 30px;margin-left: 20px;">
+                <h3><span style="font-size: 17px;font-weight: bold;color: rgb(255, 255, 255);">total Book:{{sumBook}} item</span></h3>  
             </div >
-            <div style="display: inline-block;float: right;background-color: red;width: 200px;height: 60px;margin: 20px;">
-                <span style="font-size: 20px;">tatal patment: {{order.totalPayment}} Bth.</span>
+            <div style="width: 200px;height: 60px;margin: 20px;">
+                <span style="font-size: 17px;font-weight: bold;color: rgb(255, 255, 255);">tatal patment: {{order.totalPayment}} Bth.</span>
             </div>
         </div>
-        <br>
-        <hr style="width:50%;text-align:left;margin-left:0">
-        <div *ngFor="let item of order.list; index as i">
-            <span>หนังสือ: {{item.nameBook}}</span> --> <span>จำนวน {{item.quantity}} เล่ม</span> 
+        <ul class="list-group" *ngFor="let item of order.list; index as i">
+        
+            <!-- <span>หนังสือ: {{item.nameBook}}</span> == <span>จำนวน {{item.quantity}} เล่ม</span>  -->
+            
+                <li class="list-group-item d-flex  align-items-center" style="background-color: #FF5F00;color:aliceblue">
+                    หนังสือ: {{item.nameBook}}
+                  <span class="badge rounded-pill" style="background-color: aliceblue;color: #B20600;margin-left: 5px;">{{item.quantity}}</span>
+                </li>
+        </ul>
+        <div>
+
         </div>
         </div>
     </mat-drawer>
