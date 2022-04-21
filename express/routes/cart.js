@@ -178,8 +178,8 @@ router.route('/minustocart').put(async (req, res)=>{
                 }
             )
             }else if(index.quantity ==1){
-                console.log(index);
-                console.log("delete one");
+                // console.log(index);
+                // console.log("delete one");
                 await Cart.updateOne({user:req.body.idUser},
                 {
                     $pull:{

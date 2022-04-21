@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { LocalStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
 import { CartV2Service } from 'src/app/services/cart-v2.service';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-showproducts',
   templateUrl: './showproducts.component.html',
@@ -197,6 +198,26 @@ export class ShowproductsComponent implements OnInit {
   exposureTocart(item:any){
     console.log(item);
     
+  }
+
+  confirmOrder(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 
 }
