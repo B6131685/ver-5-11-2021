@@ -168,4 +168,35 @@ export class ShowproductsComponent implements OnInit {
     }
   }
 
+  async minusTocart(idBook:String){
+    // console.log("token user:")
+    // console.log(this.local.get('user').result.id);
+    const token = this.local.get('user').result.id;
+    console.log(idBook);
+    console.log("checkaddTocart working");
+    
+    try {
+      this.CartV2Service.minusCart({idUser:token ,item:idBook}).subscribe(
+        data => {
+
+          // console.log(data);
+          this.order = { totalPayment:0, list:[] };
+          this.sumBook = 0;
+          this.getCartById();
+          
+        },
+        err => {
+         throw err;
+        }
+      )
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  exposureTocart(item:any){
+    console.log(item);
+    
+  }
+
 }
