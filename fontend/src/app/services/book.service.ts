@@ -20,7 +20,7 @@ export class BookService {
   }
 
   getProducts(){
-    return this.http.get<any>('http://localhost:3000/bookstore/getbook')
+    return this.http.get<any>('http://localhost:3000/bookstore/getAllBook')
     .pipe(map(data => {
       if (data) {
         this.products = data;

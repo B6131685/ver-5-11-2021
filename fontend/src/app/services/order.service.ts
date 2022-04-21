@@ -9,7 +9,7 @@ export class OrderService {
   products: any;
   constructor(private http:HttpClient) { }
 
-  getProducts(){
+  getOrders(){
     return this.http.get<any>('http://localhost:3000/bookstore/getorder')
     .pipe(map(data => {
       if (data) {
@@ -31,6 +31,13 @@ export class OrderService {
     console.log('addOrder');
     console.log(product);
     return this.http.post<any>('http://localhost:3000/bookstore/addorder', product)
+    .pipe(map(data =>{
+      return data;
+    }))
+  }
+
+  updateStateSend(item:any){
+    return this.http.put<any>('http://localhost:3000/bookstore/updateStateOrder', item)
     .pipe(map(data =>{
       return data;
     }))

@@ -20,7 +20,7 @@ import { CartsComponent } from './userMode/carts/carts.component';
 import { SearchComponent } from './userMode/search/search.component';
 import { BuyProductsComponent } from './userMode/buy-products/buy-products.component';
 import { DeleteCartComponent } from './userMode/delete-cart/delete-cart.component';
-import { HomeComponent } from './adminMode/home/home.component';
+import { HomeComponent,TruncatePipe } from './adminMode/home/home.component';
 import { ResetPasswordComponent } from './userMode/reset-password/reset-password.component';
 import { ManageUserComponent } from './adminMode/manage-user/manage-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +31,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { CartV2Component } from './cart-v2/cart-v2.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
+import { PipeBookModule } from 'src/shared/pipe/pipe-book/pipe-book.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     ResetPasswordComponent,
     ManageUserComponent,
     CartV2Component,
-    
+    TruncatePipe,
     
   ],
   imports: [
@@ -65,6 +66,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatButtonModule,
     MatBadgeModule,
     MatTabsModule,
+    PipeBookModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -60,7 +60,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <app-carts></app-carts>
+                
                 </div>
               </div>
             </div>
@@ -95,9 +95,37 @@
                 </li>
         </ul>
         <div style="margin-top: 30px;margin-left: 10px;">
-            <button mat-raised-button color="primary" (click)="confirmOrder()">สั่งซื้อ</button>
+            <button mat-raised-button color="primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" > สั่งซื้อ</button>
         </div>
         </div>
     </mat-drawer>
   </mat-drawer-container>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3" [formGroup]="myGroup">
+                <label for="exampleFormControlInput1" class="form-label">ใส่ที่อยู่จัดส่ง</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" formControlName='location'>
+                <div *ngIf="validateLocation.invalid && (validateLocation.dirty || validateLocation.touched)" class="alert-danger">
+                    <div *ngIf="validateLocation.errors?.required">
+                      โปรดกรอกที่อยู่
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-primary" *ngIf="!validateLocation.invalid && (validateLocation.dirty || validateLocation.touched)" (click)="confirmOrder()" data-bs-dismiss="modal">ยืนยันที่จัดส่ง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

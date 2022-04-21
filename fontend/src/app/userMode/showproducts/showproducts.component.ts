@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
-import { FormControl } from '@angular/forms';
 import { LocalStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
 import { CartV2Service } from 'src/app/services/cart-v2.service';
 import { OrderService } from 'src/app/services/order.service'
 import Swal from 'sweetalert2'
+import { FormControl, FormGroup, Validators} from '@angular/forms'
 @Component({
   selector: 'app-showproducts',
   templateUrl: './showproducts.component.html',
@@ -17,7 +17,9 @@ export class ShowproductsComponent implements OnInit {
   counter: any;
   user = "";
   keyword = new FormControl('');
-
+  myGroup = new FormGroup({
+    location : new FormControl('',[Validators.required])
+  });
   sumBook = 0;
   listCart!: [{
     item:String,
@@ -29,13 +31,14 @@ export class ShowproductsComponent implements OnInit {
   order : {
     userID:String,
     totalPayment:number,
+    address: String,
     list:{
       idBook:String,
       nameBook:String
       quantity:number,
       costBook:number
       }[]
-  } = { userID:'',totalPayment:0,
+  } = { userID:'',totalPayment:0,address:'',
     list:[]
   }
 
@@ -147,7 +150,7 @@ export class ShowproductsComponent implements OnInit {
 
   relog(){
     console.log("can check ative");
-    this.order = { userID:'',totalPayment:0, list:[] };
+    this.order = { userID:'',totalPayment:0,address:'', list:[] };
     
   }
 
@@ -164,7 +167,7 @@ export class ShowproductsComponent implements OnInit {
         data => {
 
           // console.log(data);
-          this.order = { userID:'',totalPayment:0, list:[] };
+          this.order = { userID:'',totalPayment:0,address:'', list:[] };
           this.sumBook = 0;
           this.getCartById();
           
@@ -190,7 +193,7 @@ export class ShowproductsComponent implements OnInit {
         data => {
 
           // console.log(data);
-          this.order = { userID:'',totalPayment:0, list:[] };
+          this.order = { userID:'',totalPayment:0,address:'', list:[] };
           this.sumBook = 0;
           this.getCartById();
           
@@ -221,13 +224,13 @@ export class ShowproductsComponent implements OnInit {
       cancelButtonText: 'ยกเลิก'
     }).then((result) => {
       if (result.isConfirmed) {
-
+        this.order.address = this.myGroup.value.location;
         // console.log(this.order);
         this.OrderService.addOrder(this.order).subscribe(
           data => {
 
             // console.log(data);
-            this.order = { userID:'',totalPayment:0, list:[] };
+                        this.order = { userID:'',totalPayment:0,address:'', list:[] };
             this.sumBook = 0;
             this.getCartById();
             
@@ -237,6 +240,8 @@ export class ShowproductsComponent implements OnInit {
           }
         )
         
+        
+
         Swal.fire(
           'บันทึก!',
           'ระบบได้บันทึกคำสั่งซื้อแล้ว',
@@ -245,5 +250,7 @@ export class ShowproductsComponent implements OnInit {
       }
     })
   }
+
+  get validateLocation() { return this.myGroup.get('location') as FormControl }
 
 }

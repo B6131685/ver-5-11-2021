@@ -7,6 +7,8 @@ var Schema = require('mongoose').Schema;
 
 const orderSchema = Schema({
     userID:String,
+    send: {type:Boolean, default:false},
+    address: String,
     list: [
         {idBook: String,quantity:Number}
     ]
@@ -21,16 +23,48 @@ try {
     Order = mongoose.model('orders', orderSchema);
 }
 
+const cartSchema = Schema({
+    user: mongoose.ObjectId,
+    product: [
+        
+    ]
+}, {
+    collection: 'carts'
+});
+
+let Cart
+try {
+    Cart = mongoose.model('carts')
+}catch(error){
+    Cart = mongoose.model('carts',cartSchema);
+}
+
 const addProducts = (productData) =>{
     return new Promise ((resolve, reject) => {
         var new_product = new Order(
              productData
         );
+        
+        let list2 = productData.list.map((element)=>{
+            return {item:element.idBook, quantity:element.quantity}
+        })
+        
+        // console.log("productData");
+        // console.log(productData);
+        console.log(list2);
+        Cart.updateOne(
+            { user:productData.userID, product:list2 },
+            { $unset: { product : list2 }},()=>{
+
+            }
+        )
+
         new_product.save(
             (err, data)=>{
                 if(err){
                     reject(new Error('Cannot insert order to DB'));
                 }else{
+
                     resolve({message: 'Order added successfully'});
                 }
             }
@@ -79,6 +113,7 @@ const deleteProduct = (productID) =>{
 
 router.route('/addorder').post((req, res)=>{
     console.log('add order');
+    // console.log(req.body);
     addProducts(req.body)
     .then(result => {
         console.log(result);
@@ -113,6 +148,18 @@ router.route('/deleteorder').post((req,res)=>{
     .catch( err => {
         console.log(err);
     })
+})
+
+
+router.route('/updateStateOrder').put( (req,res)=>{
+
+    var query = {"_id":req.body._id};
+
+        Order.findByIdAndUpdate(query, {send:true}, {new: true}, function(err, doc) {
+            if (err) return res.status(400).json({msg:err});
+            return res.status(200).json({msg:doc});
+        });
+
 })
 
 module.exports = router

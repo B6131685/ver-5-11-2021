@@ -115,7 +115,7 @@ router.route('/updateBookfromuser').put( (req,res)=>{
 
 })
 
-router.route('/getbook').get((req,res)=>{
+router.route('/getAllBook').get((req,res)=>{
     console.log('get');
     getProduct().then( result => {
         //console.log(result);
